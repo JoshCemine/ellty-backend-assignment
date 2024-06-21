@@ -1,5 +1,5 @@
 import dbConnect from '../../../lib/mongoose';
-import Item from '../../../models/item';
+import Comment from '../../../models/comment';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -10,33 +10,33 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const item = await Item.findById(id);
-        if (!item) {
+        const comment = await Comment.findById(id);
+        if (!comment) {
           return res.status(404).json({ success: false });
         }
-        res.status(200).json({ success: true, data: item });
+        res.status(200).json({ success: true, data: comment });
       } catch (error) {
         res.status(400).json({ success: false });
       }
       break;
     case 'PUT':
       try {
-        const item = await Item.findByIdAndUpdate(id, req.body, {
+        const comment = await Comment.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true,
         });
-        if (!item) {
+        if (!comment) {
           return res.status(404).json({ success: false });
         }
-        res.status(200).json({ success: true, data: item });
+        res.status(200).json({ success: true, data: comment });
       } catch (error) {
         res.status(400).json({ success: false });
       }
       break;
     case 'DELETE':
       try {
-        const deletedItem = await Item.deleteOne({ _id: id });
-        if (!deletedItem) {
+        const deletedComment = await Comment.deleteOne({ _id: id });
+        if (!deletedComment) {
           return res.status(404).json({ success: false });
         }
         res.status(200).json({ success: true, data: {} });

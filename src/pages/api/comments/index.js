@@ -1,5 +1,5 @@
 import dbConnect from '../../../lib/mongoose';
-import Item from '../../../models/item';
+import Comment from '../../../models/comment';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -9,16 +9,16 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const items = await Item.find({});
-        res.status(200).json({ success: true, data: items });
+        const comments = await Comment.find({});
+        res.status(200).json({ success: true, data: comments });
       } catch (error) {
         res.status(400).json({ success: false });
       }
       break;
     case 'POST':
       try {
-        const item = await Item.create(req.body);
-        res.status(201).json({ success: true, data: item });
+        const comment = await Comment.create(req.body);
+        res.status(201).json({ success: true, data: comment });
       } catch (error) {
         res.status(400).json({ success: false });
       }
